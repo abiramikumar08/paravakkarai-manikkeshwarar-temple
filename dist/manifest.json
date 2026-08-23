@@ -1,0 +1,16 @@
+{
+  "name": "அருள்மிகு ஸ்ரீ மாணிக்கேஸ்வரர் திருக்கோயில்",
+  "short_name": "மாணிக்கேஸ்வரர்",
+  "description": "பரவாக்கரை அருள்மிகு ஸ்ரீ மாணிக்கேஸ்வரர் திருக்கோயில் பக்தி இணையதளம்",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDFBF7",
+  "theme_color": "#4A121A",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

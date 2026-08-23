@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  h1, h2, h3, .font-heading {
+    font-family: 'Noto Serif Tamil', Georgia, serif;
+  }
+}
+
+/* Custom Devotional Motifs & Patterns */
+.bg-temple-pattern {
+  background-color: #FDFBF7;
+  background-image: radial-gradient(#C89D35 0.75px, transparent 0.75px), radial-gradient(#C89D35 0.75px, #FDFBF7 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  background-opacity: 0.05;
+}
+
+.bg-maroon-pattern {
+  background-color: #4A121A;
+  background-image: radial-gradient(rgba(200, 157, 53, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Traditional Sacred Border Styling */
+.border-temple-pattern {
+  border-style: solid;
+  border-image: linear-gradient(to right, #4A121A, #C89D35, #4A121A) 1;
+}
+
+.border-temple-gold {
+  border-image: linear-gradient(to right, transparent, #C89D35, transparent) 1;
+}
+
+/* Ornamental Tamil Title Underline */
+.temple-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.25rem 0;
+}
+
+.temple-divider::before,
+.temple-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid rgba(200, 157, 53, 0.4);
+  max-width: 120px;
+}
+
+.temple-divider-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #C89D35;
+  transform: rotate(45deg);
+  margin: 0 12px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F8F4EC;
+}
+::-webkit-scrollbar-thumb {
+  background: #4A121A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6B1D27;
+}
+
+/* Tamil Typography Enhancements */
+.tamil-text-readable {
+  line-height: 1.95;
+  letter-spacing: 0.01em;
+}
+
+/* Subtle Shimmer for Gold Highlights */
+@keyframes goldPulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; text-shadow: 0 0 10px rgba(200, 157, 53, 0.4); }
+}
+
+.gold-shimmer {
+  animation: goldPulse 4s infinite ease-in-out;
+}
