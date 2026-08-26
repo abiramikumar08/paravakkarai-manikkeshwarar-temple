@@ -1,29 +1,38 @@
 import React, { useState } from 'react';
 import { templeData } from '../data/templeData';
-import { Image as ImageIcon, Filter, Maximize2, Camera, Info } from 'lucide-react';
+import { Image as ImageIcon, Camera, ZoomIn, Sparkles, CheckCircle2 } from 'lucide-react';
+import ImageModal from '../components/ImageModal';
 
 export default function Gallery() {
-  const [selectedCategory, setSelectedCategory] = useState('அனைத்தும்');
-  const [activeImageIndex, setActiveImageIndex] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [currentGalleryList, setCurrentGalleryList] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [renovationTab, setRenovationTab] = useState('after');
 
-  const categories = [
-    'அனைத்தும்',
-    'கோயில் தோற்றம்',
-    'மூலவர் சன்னதி',
-    'அம்பாள் சன்னதி',
-    'கோயில் வளாகம்',
-    'பழமையான கட்டிடக்கலை',
-    'கும்பாபிஷேக ஏற்பாடுகள்'
-  ];
+  const openLightbox = (list, index) => {
+    setCurrentGalleryList(list);
+    setSelectedIndex(index);
+    setSelectedImage(list[index]);
+  };
 
-  const filteredImages = selectedCategory === 'அனைத்தும்'
-    ? templeData.GALLERY_IMAGES
-    : templeData.GALLERY_IMAGES.filter(img => img.category === selectedCategory);
+  const handleNext = () => {
+    if (selectedIndex < currentGalleryList.length - 1) {
+      const nextIdx = selectedIndex + 1;
+      setSelectedIndex(nextIdx);
+      setSelectedImage(currentGalleryList[nextIdx]);
+    }
+  };
 
-  const currentModalImage = activeImageIndex !== null ? filteredImages[activeImageIndex] : null;
+  const handlePrev = () => {
+    if (selectedIndex > 0) {
+      const prevIdx = selectedIndex - 1;
+      setSelectedIndex(prevIdx);
+      setSelectedImage(currentGalleryList[prevIdx]);
+    }
+  };
 
   return (
-    <div className="space-y-10 animate-fadeIn pb-8 max-w-6xl mx-auto">
+    <div className="space-y-12 animate-fadeIn pb-8 max-w-6xl mx-auto">
       
       {/* Page Header */}
       <div className="text-center space-y-3 border-b border-temple-gold/30 pb-6">
@@ -37,129 +46,166 @@ export default function Gallery() {
           <div className="temple-divider-dot" />
         </div>
         <p className="text-sm md:text-base text-temple-stoneLight max-w-2xl mx-auto">
-          பரவாக்கரை அருள்மிகு ஸ்ரீ மாணிக்கேஸ்வரர் திருக்கோயிலின் தோற்றம், கருவறை சன்னதிகள் மற்றும் கும்பாபிஷேகப் பணிகளின் புகைப்படத் தொகுப்பு.
+          பரவாக்கரை அருள்மிகு ஸ்ரீ மாணிக்கேஸ்வரர் திருக்கோயிலின் சந்நிதி புகைப்படங்கள் மற்றும் திருப்பணி முன்பும் பின்பும் புகைப்படத் தொகுப்பு.
         </p>
       </div>
 
-      {/* Authenticity Notice */}
-      <div className="p-4 rounded-2xl bg-temple-cream border border-temple-gold/40 shadow-sm flex items-center gap-3">
-        <Info className="w-5 h-5 text-temple-goldDark shrink-0" />
-        <p className="text-xs text-temple-stoneLight">
-          <strong>புகைப்படத் தகவல்கள்:</strong> திருக்கோயிலின் அதிகாரப்பூர்வ புகைப்படங்கள் பெறப்பட்டவுடன் இப்பகுதியில் பதிவேற்றப்படும்.
-        </p>
-      </div>
-
-      {/* Category Filter Pills */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-3 scrollbar-none justify-start md:justify-center">
-        <Filter className="w-4 h-4 text-temple-gold shrink-0 ml-1" />
-        {categories.map((cat, idx) => (
-          <button
-            key={idx}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-xl text-xs md:text-sm font-medium whitespace-nowrap transition-all duration-200 ${
-              selectedCategory === cat
-                ? 'bg-temple-maroon text-temple-gold shadow-md border border-temple-gold/40 font-bold'
-                : 'bg-temple-cream text-temple-stone hover:bg-temple-sand border border-temple-gold/20'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      {/* Gallery Image Grid (Authentic Placeholder Cards) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredImages.map((img, idx) => (
-          <div
-            key={img.id}
-            onClick={() => setActiveImageIndex(idx)}
-            className="group relative bg-temple-cream rounded-2xl overflow-hidden border border-temple-gold/30 shadow-sm hover:shadow-xl hover:border-temple-gold transition-all duration-300 cursor-pointer flex flex-col justify-between"
-          >
-            {/* Image Box or Placeholder */}
-            <div className="relative aspect-[4/3] bg-gradient-to-br from-temple-sand via-temple-cream to-temple-sand flex flex-col items-center justify-center p-6 text-center border-b border-temple-gold/20">
-              <div className="w-16 h-16 rounded-full bg-temple-maroon/10 border border-temple-gold/40 flex items-center justify-center text-temple-maroon mb-3 group-hover:scale-110 transition-transform">
-                <span className="text-3xl font-serif">ௐ</span>
-              </div>
-              <span className="text-xs font-bold font-serif text-temple-maroon">
-                {img.placeholderText || 'திருக்கோயில் புகைப்படம் விரைவில் சேர்க்கப்படும்'}
-              </span>
-              <span className="text-[11px] text-temple-stoneLight mt-1 italic">
-                (அதிகாரப்பூர்வ படங்கள் சேர்க்கப்பட உள்ளன)
-              </span>
-
-              <div className="absolute inset-0 bg-temple-maroonDark/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
-                <span className="text-xs text-temple-gold font-semibold flex items-center gap-1.5 bg-temple-maroon px-3 py-1.5 rounded-full border border-temple-gold/40">
-                  <Maximize2 className="w-4 h-4" />
-                  <span>விவரங்களைக் காண</span>
-                </span>
-              </div>
-            </div>
-
-            <div className="p-4 bg-temple-cream flex-1 flex flex-col justify-between">
-              <div>
-                <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-temple-gold/15 text-temple-goldDark border border-temple-gold/30">
-                  {img.category}
-                </span>
-                <h3 className="text-base font-bold font-serif text-temple-maroon mt-2">
-                  {img.title}
-                </h3>
-              </div>
-              <p className="text-xs text-temple-stoneLight mt-1">
-                {img.caption}
-              </p>
+      {/* SECTION 1: சந்நிதி புகைப்படங்கள் */}
+      <section className="bg-temple-sand rounded-3xl p-6 md:p-8 border border-temple-gold/40 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-temple-gold/20 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-3 h-8 bg-temple-maroon rounded-full" />
+            <div>
+              <h2 className="text-xl md:text-2xl font-bold font-serif text-temple-maroon">
+                சந்நிதி புகைப்படங்கள்
+              </h2>
+              <p className="text-xs text-temple-stoneLight">கருவறை சந்நிதிகள் மற்றும் வரலாற்றுப் புகைப்படங்கள்</p>
             </div>
           </div>
-        ))}
-      </div>
+          <span className="text-xs px-3 py-1 rounded-full bg-temple-gold/20 text-temple-maroon font-serif font-bold self-start sm:self-auto border border-temple-gold/30">
+            {templeData.SANNIDHI_GALLERY.length} புகைப்படங்கள்
+          </span>
+        </div>
 
-      {/* Simple Image Modal for Placeholder info */}
-      {currentModalImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-temple-stone/90 backdrop-blur-md animate-fadeIn">
-          <div className="bg-temple-cream rounded-3xl p-6 md:p-8 max-w-lg w-full border-2 border-temple-gold/40 shadow-2xl text-center space-y-4 relative">
-            <div className="w-16 h-16 rounded-full bg-temple-maroon text-temple-gold flex items-center justify-center text-3xl font-serif mx-auto border border-temple-gold/50">
-              ௐ
-            </div>
-
-            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-temple-gold/20 text-temple-goldDark border border-temple-gold/30 inline-block">
-              {currentModalImage.category}
-            </span>
-
-            <h3 className="text-xl font-bold font-serif text-temple-maroon">
-              {currentModalImage.title}
-            </h3>
-
-            <p className="text-sm text-temple-stone font-medium">
-              {currentModalImage.caption}
-            </p>
-
-            <div className="p-3 rounded-xl bg-temple-sand border border-temple-gold/30 text-xs text-temple-stoneLight">
-              திருக்கோயில் கும்பாபிஷேகம் மற்றும் வழிபாடுகளின் அதிகாரப்பூர்வ புகைப்படங்கள் விரைவில் இங்கு பதிவேற்றப்படும்.
-            </div>
-
-            <button
-              onClick={() => setActiveImageIndex(null)}
-              className="w-full py-2.5 rounded-xl bg-temple-maroon text-temple-gold font-bold text-sm hover:bg-temple-maroonLight transition-colors"
+        {/* Sannidhi Image Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {templeData.SANNIDHI_GALLERY.map((img, idx) => (
+            <div
+              key={img.id}
+              onClick={() => openLightbox(templeData.SANNIDHI_GALLERY, idx)}
+              className="group relative bg-temple-cream rounded-2xl overflow-hidden border border-temple-gold/40 shadow-sm hover:shadow-xl hover:border-temple-gold transition-all duration-300 cursor-pointer flex flex-col justify-between"
             >
-              மூடுக
+              <div className="relative aspect-[4/3] bg-temple-maroonDark overflow-hidden">
+                <img
+                  src={img.url}
+                  alt={img.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end">
+                  <div className="flex items-center justify-between text-white">
+                    <span className="text-xs font-bold font-serif text-temple-gold">{img.title}</span>
+                    <ZoomIn className="w-4 h-4 text-temple-gold shrink-0 opacity-80 group-hover:opacity-100" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 bg-temple-cream space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-temple-gold/20 text-temple-goldDark border border-temple-gold/30">
+                    {img.category}
+                  </span>
+                  <span className="text-[10px] text-temple-stoneLight italic">சொடுக்கி பெரிதாக்குக</span>
+                </div>
+                <p className="text-xs font-medium text-temple-stone leading-relaxed pt-1">
+                  {img.caption}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION 2: திருக்கோயில் திருப்பணி: முன்பும் பின்பும் */}
+      <section className="bg-temple-cream rounded-3xl p-6 md:p-8 border border-temple-gold/40 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-temple-gold/20 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-3 h-8 bg-temple-maroon rounded-full" />
+            <div>
+              <h2 className="text-xl md:text-2xl font-bold font-serif text-temple-maroon">
+                திருக்கோயில் திருப்பணி: முன்பும் பின்பும்
+              </h2>
+              <p className="text-xs text-temple-stoneLight">திருக்கோயில் திருப்பணிக்கு முன்னும் பின்னும் எடுக்கப்பட்ட புகைப்படங்கள்</p>
+            </div>
+          </div>
+
+          {/* Toggle Buttons */}
+          <div className="flex items-center p-1 rounded-2xl bg-temple-sand border border-temple-gold/30 self-start sm:self-auto">
+            <button
+              onClick={() => setRenovationTab('after')}
+              className={`px-4 py-2 rounded-xl text-xs font-bold font-serif transition-all ${
+                renovationTab === 'after'
+                  ? 'bg-temple-maroon text-temple-gold shadow-md'
+                  : 'text-temple-stone hover:text-temple-maroon'
+              }`}
+            >
+              திருப்பணிக்குப் பின் ({templeData.RENOVATION_AFTER_IMAGES.length})
+            </button>
+            <button
+              onClick={() => setRenovationTab('before')}
+              className={`px-4 py-2 rounded-xl text-xs font-bold font-serif transition-all ${
+                renovationTab === 'before'
+                  ? 'bg-temple-maroon text-temple-gold shadow-md'
+                  : 'text-temple-stone hover:text-temple-maroon'
+              }`}
+            >
+              திருப்பணிக்கு முன் ({templeData.RENOVATION_BEFORE_IMAGES.length})
             </button>
           </div>
         </div>
-      )}
 
-      {/* Photo Sharing Info Banner */}
-      <section className="bg-temple-sand rounded-3xl p-6 md:p-8 border border-temple-gold/40 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="space-y-1 text-center sm:text-left">
-          <div className="flex items-center justify-center sm:justify-start gap-2 text-temple-maroon">
-            <Camera className="w-5 h-5 text-temple-gold" />
-            <h3 className="text-lg font-bold font-serif">
-              {templeData.PHOTO_SHARE_INFO.title}
-            </h3>
-          </div>
-          <p className="text-xs md:text-sm text-temple-stoneLight">
-            {templeData.PHOTO_SHARE_INFO.desc}
-          </p>
+        {/* Active Renovation Gallery Grid */}
+        <div>
+          {renovationTab === 'after' ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {templeData.RENOVATION_AFTER_IMAGES.map((img, idx) => (
+                <div
+                  key={img.id}
+                  onClick={() => openLightbox(templeData.RENOVATION_AFTER_IMAGES, idx)}
+                  className="group relative rounded-2xl overflow-hidden border border-temple-gold/40 shadow-sm cursor-pointer aspect-square bg-temple-maroonDark flex flex-col justify-between"
+                >
+                  <img
+                    src={img.url}
+                    alt={img.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-90 group-hover:opacity-100 transition-opacity p-3 flex flex-col justify-end">
+                    <div className="flex items-center justify-between text-white mb-0.5">
+                      <p className="text-xs font-bold font-serif text-temple-gold truncate">{img.title}</p>
+                      <ZoomIn className="w-4 h-4 text-temple-gold shrink-0 ml-1" />
+                    </div>
+                    <p className="text-[11px] text-temple-sand/90 font-medium truncate">{img.caption}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {templeData.RENOVATION_BEFORE_IMAGES.map((img, idx) => (
+                <div
+                  key={img.id}
+                  onClick={() => openLightbox(templeData.RENOVATION_BEFORE_IMAGES, idx)}
+                  className="group relative rounded-2xl overflow-hidden border border-temple-gold/40 shadow-sm cursor-pointer aspect-square bg-temple-maroonDark flex flex-col justify-between"
+                >
+                  <img
+                    src={img.url}
+                    alt={img.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-90 group-hover:opacity-100 transition-opacity p-3 flex flex-col justify-end">
+                    <div className="flex items-center justify-between text-white mb-0.5">
+                      <p className="text-xs font-bold font-serif text-temple-gold truncate">{img.title}</p>
+                      <ZoomIn className="w-4 h-4 text-temple-gold shrink-0 ml-1" />
+                    </div>
+                    <p className="text-[11px] text-temple-sand/90 font-medium truncate">{img.caption}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
+
+      {/* Lightbox Modal */}
+      {selectedImage && (
+        <ImageModal
+          image={selectedImage}
+          onClose={() => setSelectedImage(null)}
+          onNext={handleNext}
+          onPrev={handlePrev}
+          hasNext={selectedIndex < currentGalleryList.length - 1}
+          hasPrev={selectedIndex > 0}
+        />
+      )}
 
     </div>
   );

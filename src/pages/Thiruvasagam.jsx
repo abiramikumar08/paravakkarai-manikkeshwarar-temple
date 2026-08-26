@@ -10,53 +10,51 @@ export default function Thiruvasagam() {
 
   const verses = templeData.SIVAPURANAM_VERSES || [];
 
-  const sections = ['அனைத்தும்', 'சிவபுராணம்', 'திருவெம்பாவை', 'திருப்பள்ளியெழுச்சி', 'திருவாசகம் - பிற பாடல்கள்'];
+  const sections = ['அனைத்தும்', 'சிவபுராணம்', 'திருவெம்பாவை', 'திருப்பள்ளியெழுச்சி', 'காந்தாரபஞ்சமம்'];
 
   const filteredVerses = selectedSection === 'அனைத்தும்'
     ? verses
-    : selectedSection === 'திருவாசகம் - பிற பாடல்கள்'
-      ? verses.filter(v => !['சிவபுராணம்', 'திருவெம்பாவை', 'திருப்பள்ளியெழுச்சி'].includes(v.section))
-      : verses.filter(v => v.section === selectedSection);
+    : verses.filter(v => v.section.includes(selectedSection));
 
   const handleCopy = () => {
     const textToCopy = filteredVerses.map(v => `[${v.section} - பாடல் ${v.line}]\n${v.text}\n\nபொருள்: ${v.meaning}`).join('\n\n---\n\n');
-    navigator.clipboard.writeText(`மாணிக்கவாசகர் அருளிய திருவாசகம் பாடல்கள்\n\n${textToCopy}`);
+    navigator.clipboard.writeText(`சைவ திருமுறைகள் - திருவாசகம் & தேவாரம் பாடல்கள்\n\n${textToCopy}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="bg-temple-maroonDark text-temple-sand space-y-8 animate-fadeIn pb-12 rounded-3xl p-4 md:p-8 border border-temple-gold/40 shadow-2xl">
+    <div className="bg-temple-maroonDark text-temple-sand space-y-8 animate-fadeIn pb-12 rounded-3xl p-4 md:p-8 border border-temple-gold/40 shadow-2xl overflow-hidden">
       
       {/* Page Header */}
-      <div className="text-center space-y-3 border-b border-temple-gold/30 pb-6">
+      <div className="text-center space-y-3 border-b border-temple-gold/30 pb-6 px-2">
         <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-temple-gold/20 text-temple-goldLight text-xs font-semibold tracking-widest font-serif border border-temple-gold/30">
           <BookOpen className="w-4 h-4 text-temple-gold" />
           <span>சைவ பன்னிரு திருமுறைகள்</span>
         </div>
 
-        <h1 className="text-3xl md:text-4xl font-bold font-serif text-temple-gold">
-          மாணிக்கவாசகர் அருளிய திருவாசகம்
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold font-serif text-temple-gold break-words">
+          திருவாசகம் & தேவாரம் பாடல்கள்
         </h1>
 
         <p className="text-sm md:text-base text-temple-sand/90 max-w-2xl mx-auto font-serif italic">
           "நமச்சிவாய வாழ்க! நாதன் தாள் வாழ்க!"
         </p>
 
-        <p className="text-xs text-temple-sand/70 max-w-xl mx-auto">
-          சிவபுராணம், திருவெம்பாவை, திருப்பள்ளியெழுச்சி உள்ளிட்ட திருவாசகத் திருமுறைப் பாடல்களின் தொகுப்பு.
+        <p className="text-xs text-temple-sand/70 max-w-xl mx-auto leading-relaxed">
+          சிவபுராணம், திருவெம்பாவை, திருப்பள்ளியெழுச்சி மற்றும் திருஞானசம்பந்தர் அருளிய காந்தாரபஞ்சமம் (இடரினும் தளரினும்) பதிகம்.
         </p>
       </div>
 
       {/* Section Selection Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none justify-start sm:justify-center">
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none justify-start sm:justify-center px-1">
         {sections.map((sec, idx) => (
           <button
             key={idx}
             onClick={() => setSelectedSection(sec)}
             className={`px-3.5 py-1.5 rounded-xl text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
               selectedSection === sec
-                ? 'bg-temple-gold text-temple-maroonDark border border-temple-gold shadow-md'
+                ? 'bg-temple-gold text-temple-maroonDark border border-temple-gold shadow-md font-bold'
                 : 'bg-temple-maroon/80 text-temple-sand hover:bg-temple-maroon border border-temple-gold/30'
             }`}
           >
@@ -124,39 +122,39 @@ export default function Thiruvasagam() {
 
       </div>
 
-      {/* Main Devotional Text Container (Permanent Dark Mode Reading Area) */}
+      {/* Main Devotional Text Container */}
       <section className="space-y-6 max-w-4xl mx-auto pt-4">
         {filteredVerses.map((verse) => (
           <div 
             key={verse.id}
-            className="p-6 md:p-8 rounded-3xl bg-temple-maroon/70 border border-temple-gold/30 shadow-md hover:border-temple-gold transition-all duration-200"
+            className="p-4 sm:p-6 md:p-8 rounded-3xl bg-temple-maroon/70 border border-temple-gold/30 shadow-md hover:border-temple-gold transition-all duration-200 overflow-hidden break-words"
           >
             
             {/* Verse Header Badge */}
-            <div className="flex items-center justify-between mb-3 border-b border-temple-gold/20 pb-2">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3 border-b border-temple-gold/20 pb-2">
               <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-temple-maroonDark text-temple-gold border border-temple-gold/40">
                 {verse.section} • பாடல் {verse.line}
               </span>
               <span className="text-xs text-temple-goldLight font-serif italic">
-                மாணிக்கவாசகர் அருளியது
+                {verse.section.includes('திருஞானசம்பந்தர்') ? 'திருஞானசம்பந்தர் சுவாமிகள் அருளியது' : 'மாணிக்கவாசகர் பெருமான் அருளியது'}
               </span>
             </div>
 
             {/* Verse Tamil Text */}
             <div 
               style={{ fontSize: `${fontSize}px`, lineHeight: 2 }}
-              className="font-serif font-bold whitespace-pre-line tracking-wide text-temple-sand py-2"
+              className="font-serif font-bold whitespace-pre-line tracking-wide text-temple-sand py-2 break-words"
             >
               {verse.text}
             </div>
 
             {/* Verse Meaning */}
             {showMeanings && verse.meaning && (
-              <div className="mt-4 p-4 rounded-2xl bg-temple-maroonDark/90 border border-temple-gold/30 text-sm font-sans leading-relaxed text-temple-sand/90">
-                <span className="text-xs font-bold font-serif text-temple-gold block mb-1">
+              <div className="mt-4 p-4 rounded-2xl bg-temple-maroonDark/90 border border-temple-gold/30 text-sm font-sans leading-relaxed text-temple-sand/90 space-y-2 break-words">
+                <span className="text-xs font-bold font-serif text-temple-gold block">
                   பாடலின் பொருள்:
                 </span>
-                <p className="italic text-temple-sand/95">
+                <p className="italic text-temple-sand/95 leading-relaxed">
                   {verse.meaning}
                 </p>
               </div>
@@ -166,16 +164,16 @@ export default function Thiruvasagam() {
         ))}
       </section>
 
-      {/* Daily Prayers Summary */}
+      {/* Daily Prayers Summary — Fixed Mobile Responsiveness & Typography */}
       <section className="pt-10 border-t border-temple-gold/30 max-w-4xl mx-auto space-y-6">
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-2 px-2">
           <span className="text-xs font-semibold uppercase tracking-widest text-temple-goldLight font-serif">
             சைவ திருமுறைகள்
           </span>
-          <h2 className="text-2xl md:text-3xl font-bold font-serif text-temple-gold">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-serif text-temple-gold break-words">
             தினசரி பாராயணத்திற்கு
           </h2>
-          <p className="text-xs text-temple-sand/80">
+          <p className="text-xs sm:text-sm text-temple-sand/80 leading-relaxed max-w-lg mx-auto break-words">
             பக்தர்கள் தினமும் பாராயணம் செய்யக்கூடிய பாரம்பரிய சைவ திருமுறைத் துதிகள்.
           </p>
         </div>
@@ -184,17 +182,17 @@ export default function Thiruvasagam() {
           {templeData.DAILY_PRAYERS.map((prayer) => (
             <div 
               key={prayer.id}
-              className="p-5 rounded-2xl bg-temple-maroon/80 border border-temple-gold/30 space-y-2"
+              className="p-4 sm:p-5 rounded-2xl bg-temple-maroon/80 border border-temple-gold/30 space-y-2.5 overflow-hidden break-words"
             >
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-bold font-serif text-temple-gold">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-temple-gold/20 pb-2">
+                <h3 className="text-base sm:text-lg font-bold font-serif text-temple-gold leading-snug break-words">
                   {prayer.title}
                 </h3>
-                <span className="text-[10px] px-2.5 py-1 rounded-full bg-temple-gold/20 text-temple-goldLight border border-temple-gold/30">
+                <span className="text-[10px] sm:text-xs px-2.5 py-1 rounded-full bg-temple-gold/20 text-temple-goldLight border border-temple-gold/30 font-medium shrink-0">
                   {prayer.author}
                 </span>
               </div>
-              <p className="text-xs text-temple-sand/80 leading-relaxed">
+              <p className="text-xs sm:text-sm text-temple-sand/90 leading-relaxed tracking-normal font-sans pt-1 break-words">
                 {prayer.desc}
               </p>
             </div>

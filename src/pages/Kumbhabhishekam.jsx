@@ -144,13 +144,13 @@ export default function Kumbhabhishekam() {
         </section>
       )}
 
-      {/* 5. நாட்டாண்மைகள், கிராமவாசிகள் & உபயதாரர்கள் (Donors & Ubhayadharargal) */}
+      {/* 5. திருப்பணிக் குழுவினர் (Donors & Organizers) */}
       {details.donors_and_organizers && (
         <section className="bg-temple-cream rounded-3xl p-6 md:p-8 border border-temple-gold/40 shadow-sm space-y-4">
           <div className="flex items-center gap-3">
             <div className="w-3 h-8 bg-temple-maroon rounded-full" />
             <h2 className="text-xl md:text-2xl font-bold font-serif text-temple-maroon">
-              நாட்டாண்மைகள், கிராமவாசிகள் & உபயதாரர்கள்
+              திருப்பணிக் குழுவினர்
             </h2>
           </div>
 

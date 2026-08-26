@@ -88,7 +88,7 @@ export default function Footer({ setActiveTab }) {
             </ul>
           </div>
 
-          {/* Column 3: Devotional Offering Note & Mantra */}
+          {/* Column 3: Devotional Offering Note & Devotee Attribution */}
           <div className="space-y-4 rounded-xl p-5 bg-temple-maroonDark/60 border border-temple-gold/30">
             <div className="flex items-center gap-2 text-temple-gold">
               <Heart className="w-5 h-5 text-temple-gold fill-temple-gold/20" />
@@ -99,9 +99,13 @@ export default function Footer({ setActiveTab }) {
               {templeData.DIGITAL_OFFERING_CREDIT.student_note}
             </p>
 
-            <div className="pt-2 border-t border-temple-gold/20 flex items-center justify-between text-xs">
-              <span className="text-temple-gold font-bold font-serif">“நமச்சிவாய வாழ்க!”</span>
-              <span className="text-temple-sand/70">பரவாக்கரை திருத்தலம்</span>
+            <div className="pt-2 border-t border-temple-gold/20 space-y-1">
+              <p className="text-sm font-bold font-serif text-temple-gold">
+                {templeData.DIGITAL_OFFERING_CREDIT.devotee_name}
+              </p>
+              <p className="text-xs font-bold font-serif text-temple-goldLight tracking-widest pt-2">
+                {templeData.DIGITAL_OFFERING_CREDIT.closing_line}
+              </p>
             </div>
           </div>
 
@@ -110,10 +114,8 @@ export default function Footer({ setActiveTab }) {
         {/* Bottom Bar */}
         <div className="pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-temple-sand/70 gap-4 text-center md:text-left">
           <p>{templeData.DIGITAL_OFFERING_CREDIT.copyright}</p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 font-serif font-bold text-temple-goldLight">
             <span>திருச்சிற்றம்பலம்</span>
-            <span>•</span>
-            <span>ஓம் நமச்சிவாய</span>
           </div>
         </div>
 

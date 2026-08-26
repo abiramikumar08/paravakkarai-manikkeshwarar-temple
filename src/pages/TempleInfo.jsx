@@ -1,10 +1,10 @@
 import React from 'react';
 import { templeData } from '../data/templeData';
-import { Landmark, Heart, CheckCircle2, History, Sparkles, ExternalLink } from 'lucide-react';
+import { Landmark, Heart, CheckCircle2, History, Sparkles, Clock } from 'lucide-react';
 
 export default function TempleInfo({ setActiveTab }) {
   return (
-    <div className="space-y-10 animate-fadeIn pb-8 max-w-5xl mx-auto">
+    <div className="space-y-12 animate-fadeIn pb-8 max-w-5xl mx-auto">
       
       {/* Page Header */}
       <div className="text-center space-y-3 border-b border-temple-gold/30 pb-6">
@@ -18,18 +18,26 @@ export default function TempleInfo({ setActiveTab }) {
           <div className="temple-divider-dot" />
         </div>
         <p className="text-sm md:text-base text-temple-stoneLight max-w-2xl mx-auto">
-          பரவாக்கரை திருத்தலத்தின் ஆன்மிக பாரம்பரியம், இறைவன் அருள் மற்றும் பக்தர்கள் இணைந்து நடத்தும் கும்பாபிஷேகப் பணிகள் பற்றிய தகவல்கள்.
+          பரவாக்கரை திருத்தலத்தின் ஆன்மிக பாரம்பரியம், சந்நிதிகள் மற்றும் பக்தர்கள் இணைந்து நடத்தும் கும்பாபிஷேகப் பணிகள்.
         </p>
       </div>
 
-      {/* திருக்கோயில் அறிமுகம் */}
-      <section className="bg-temple-cream rounded-3xl p-6 md:p-8 border border-temple-gold/40 shadow-sm space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-3 h-8 bg-temple-maroon rounded-full" />
-          <h2 className="text-xl md:text-2xl font-bold font-serif text-temple-maroon">
-            திருக்கோயில் அறிமுகம்
-          </h2>
+      {/* திருக்கோயில் அறிமுகம் & காலம் */}
+      <section className="bg-temple-cream rounded-3xl p-6 md:p-8 border border-temple-gold/40 shadow-sm space-y-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-temple-gold/20 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-3 h-8 bg-temple-maroon rounded-full" />
+            <h2 className="text-xl md:text-2xl font-bold font-serif text-temple-maroon">
+              திருக்கோயில் அறிமுகம்
+            </h2>
+          </div>
+          {/* Temple Age Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-temple-gold/20 text-temple-maroonDark border border-temple-gold/40 font-serif font-bold text-sm">
+            <Clock className="w-4 h-4 text-temple-goldDark" />
+            <span>காலம்: {templeData.TEMPLE_HISTORY.age_info}</span>
+          </div>
         </div>
+
         <p className="text-base text-temple-stone leading-relaxed font-serif pt-1">
           {templeData.TEMPLE_HISTORY.intro}
         </p>
@@ -54,28 +62,8 @@ export default function TempleInfo({ setActiveTab }) {
         </div>
 
         <p className="text-sm text-temple-stoneLight leading-relaxed">
-          உள்ளூர் மரபிலும் தொன்றுதொட்டு தொடரும் ஆன்மிக நம்பிக்கையின் அடிப்படையிலும், இத்திருக்கோயில் பல தலைமுறைகளாக ஊர் மக்களால் வழிபடப்பட்டு வரும் தொன்மையான சிவாலயமாக திகழ்கிறது.
+          உள்ளூர் மரபிலும் தொன்றுதொட்டு தொடரும் ஆன்மிக நம்பிக்கையின் அடிப்படையிலும், இத்திருக்கோயில் 1000 ஆண்டுகள் பழமையான சிவாலயமாக பல தலைமுறைகளாக ஊர் மக்களால் வழிபடப்பட்டு வருகிறது.
         </p>
-
-        {/* Historical Source Note Banner */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 rounded-xl bg-temple-cream/90 border border-temple-gold/30 text-xs text-temple-stoneLight">
-          <div className="flex items-start gap-2.5">
-            <History className="w-4 h-4 text-temple-goldDark shrink-0 mt-0.5" />
-            <div>
-              <span className="font-semibold text-temple-maroon block">வரலாற்றுத் தகவல் குறிப்பு:</span>
-              <span>தஞ்சாவூர் பரம்பரை வெளியிட்ட பரவாக்கரை சிவன் கோயில் தொடர்பான பதிவு.</span>
-            </div>
-          </div>
-          <a
-            href={templeData.TEMPLE_HISTORY.source_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-lg bg-temple-sand text-temple-maroon hover:bg-temple-gold/20 font-semibold flex items-center gap-1.5 transition-colors border border-temple-gold/30 shrink-0"
-          >
-            <span>மூலத் தகவலைக் காண</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
       </section>
 
       {/* மூலவர் & அம்பாள் Grid */}
@@ -113,6 +101,39 @@ export default function TempleInfo({ setActiveTab }) {
           </p>
         </div>
 
+      </section>
+
+      {/* சந்நிதிகள் விபரம் (10 Sannidhis Textual Details) */}
+      <section className="bg-temple-sand rounded-3xl p-6 md:p-8 border border-temple-gold/40 shadow-sm space-y-6">
+        <div className="flex items-center justify-between border-b border-temple-gold/20 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-3 h-8 bg-temple-maroon rounded-full" />
+            <h2 className="text-xl md:text-2xl font-bold font-serif text-temple-maroon">
+              திருக்கோயில் சந்நிதிகள்
+            </h2>
+          </div>
+          <span className="text-xs px-3 py-1 rounded-full bg-temple-gold/20 text-temple-maroon font-serif font-bold">
+            10 சந்நிதிகள்
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {templeData.SANNIDHI_LIST.map((sannidhi, idx) => (
+            <div key={sannidhi.id} className="p-4 rounded-2xl bg-temple-cream border border-temple-gold/30 shadow-xs flex items-start gap-3">
+              <span className="w-7 h-7 rounded-full bg-temple-maroon text-temple-gold text-xs font-bold flex items-center justify-center shrink-0 font-serif">
+                {idx + 1}
+              </span>
+              <div className="space-y-1">
+                <h3 className="text-base font-bold font-serif text-temple-maroon">
+                  {sannidhi.title}
+                </h3>
+                <p className="text-xs md:text-sm text-temple-stone leading-relaxed">
+                  {sannidhi.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* திருத்தல சிறப்பு */}

@@ -42,7 +42,7 @@ export default function Location() {
 
           <div className="shrink-0 w-full md:w-auto text-center">
             <a
-              href="https://maps.google.com/?q=Paravakkarai+Sivan+Temple"
+              href={templeData.MAP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full md:w-auto px-6 py-4 rounded-2xl bg-gradient-to-r from-temple-maroon to-temple-maroonLight text-temple-gold font-bold text-base shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 border border-temple-gold/50 group"
