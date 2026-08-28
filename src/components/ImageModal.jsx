@@ -51,15 +51,19 @@ export default function ImageModal({ image, onClose, onNext, onPrev, hasNext, ha
         <div className="w-full p-4 md:p-6 bg-temple-maroon text-temple-sand border-t border-temple-gold/30">
           <div className="flex items-center justify-between gap-4 mb-1">
             <h3 className="text-lg font-bold font-serif text-temple-gold">
-              {image.title}
+              {image.title || image.caption}
             </h3>
-            <span className="text-xs px-3 py-1 rounded-full bg-temple-gold/20 text-temple-goldLight border border-temple-gold/30">
-              {image.category}
-            </span>
+            {image.category && (
+              <span className="text-xs px-3 py-1 rounded-full bg-temple-gold/20 text-temple-goldLight border border-temple-gold/30">
+                {image.category}
+              </span>
+            )}
           </div>
-          <p className="text-sm text-temple-sand/90 font-medium">
-            {image.caption}
-          </p>
+          {image.caption && image.caption !== image.title && (
+            <p className="text-sm text-temple-sand/90 font-medium">
+              {image.caption}
+            </p>
+          )}
         </div>
       </div>
 

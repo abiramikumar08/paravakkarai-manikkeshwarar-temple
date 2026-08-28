@@ -8,7 +8,7 @@ export default function Header({ activeTab, setActiveTab }) {
   const navItems = [
     { id: 'home', label: 'முகப்பு', icon: Home },
     { id: 'temple', label: 'திருக்கோயில்', icon: Landmark },
-    { id: 'deities', label: 'இறைவன் அருள்', icon: HeartHandshake },
+    { id: 'vinayagar', label: 'ஸ்ரீ பொய்யா விநாயகர்', icon: Sparkles },
     { id: 'kumbhabhishekam', label: 'கும்பாபிஷேகம்', icon: Sparkles },
     { id: 'thiruvasagam', label: 'திருவாசகம்', icon: BookOpen },
     { id: 'shiva-days', label: 'சிவ வழிபாட்டு நாட்கள்', icon: Calendar },

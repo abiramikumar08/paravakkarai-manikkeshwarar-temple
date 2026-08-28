@@ -4,7 +4,7 @@ import Footer from './components/Footer';
 import WelcomeModal from './components/WelcomeModal';
 import Home from './pages/Home';
 import TempleInfo from './pages/TempleInfo';
-import Deities from './pages/Deities';
+import Vinayagar from './pages/Vinayagar';
 import Kumbhabhishekam from './pages/Kumbhabhishekam';
 import Thiruvasagam from './pages/Thiruvasagam';
 import ShivaDays from './pages/ShivaDays';
@@ -12,7 +12,14 @@ import Gallery from './pages/Gallery';
 import Location from './pages/Location';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.replace(/^\//, '').toLowerCase();
+      const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+      if (path === 'vinayagar' || hash === 'vinayagar') return 'vinayagar';
+    }
+    return 'home';
+  });
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
 
   // Check if first visit in this session for QR scan landing
@@ -30,8 +37,8 @@ export default function App() {
         return <Home setActiveTab={setActiveTab} />;
       case 'temple':
         return <TempleInfo setActiveTab={setActiveTab} />;
-      case 'deities':
-        return <Deities />;
+      case 'vinayagar':
+        return <Vinayagar />;
       case 'kumbhabhishekam':
         return <Kumbhabhishekam />;
       case 'thiruvasagam':

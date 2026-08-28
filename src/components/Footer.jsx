@@ -56,8 +56,8 @@ export default function Footer({ setActiveTab }) {
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNavClick('deities')} className="hover:text-temple-gold transition-colors">
-                  • இறைவன் அருள்
+                <button onClick={() => handleNavClick('vinayagar')} className="hover:text-temple-gold transition-colors">
+                  • ஸ்ரீ பொய்யா விநாயகர்
                 </button>
               </li>
               <li>
