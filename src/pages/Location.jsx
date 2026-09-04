@@ -1,6 +1,6 @@
 import React from 'react';
 import { templeData } from '../data/templeData';
-import { MapPin, Navigation, ExternalLink, Compass } from 'lucide-react';
+import { MapPin, Navigation, ExternalLink, Compass, Bus } from 'lucide-react';
 
 export default function Location() {
   return (
@@ -20,6 +20,30 @@ export default function Location() {
         <p className="text-sm md:text-base text-temple-stoneLight max-w-2xl mx-auto">
           பரவாக்கரை அருள்மிகு ஸ்ரீ மாணிக்கேஸ்வரர் திருக்கோயிலை வந்தடைவதற்கான கூகுள் வரைபட வழிகாட்டி.
         </p>
+      </div>
+
+      {/* Bus Route Section */}
+      <div className="bg-temple-cream rounded-3xl p-6 md:p-8 border border-temple-gold/40 shadow-temple space-y-4">
+        <div className="flex items-center gap-2 text-temple-goldDark">
+          <Bus className="w-5 h-5 text-temple-maroon shrink-0" />
+          <h2 className="text-xl md:text-2xl font-bold font-serif text-temple-maroon">
+            பேருந்து வழித்தட விவரங்கள்
+          </h2>
+        </div>
+        <div className="space-y-3 text-sm md:text-base text-temple-stone leading-relaxed">
+          <p className="font-semibold text-temple-maroon">
+            கும்பகோணத்திலிருந்து பேருந்து புறப்படும் நேரம்:
+          </p>
+          <p className="pl-4">
+            காலை 6 மணி (ஐயப்பன் bus)
+          </p>
+          <p className="pl-4">
+            காலை 7 மணி (22 CRC)
+          </p>
+          <p>
+            தொடர்ந்து ஒரு மணி நேரத்திற்கு ஒரு முறை பேருந்து சேவை உள்ளது இரவு 9.30 மணி வரை.
+          </p>
+        </div>
       </div>
 
       {/* Main Location Card */}
